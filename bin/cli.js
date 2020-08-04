@@ -26,3 +26,4 @@ require('../src/index')(process.argv[2] || '.')
       }
     })
   })
+  .catch(err => { console.log(err) })

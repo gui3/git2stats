@@ -11,7 +11,7 @@ async function git2stats (dir, options = { silent: true }) {
     .then(data => {
       return data.map(chunk => parse(chunk))
     })
-    .catch(err => console.error(err))
+    .catch(err => { console.log(err) })
   return data
 }
 

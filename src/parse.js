@@ -1,13 +1,13 @@
 function parse (chunk) {
   // commit b51f5e30c575c6106422dee60188055bf7829384 (origin/i18n, origin/dev, i18n, dev)
   const commitLn = chunk.match(/commit ([^\s]+) *(?:\((.+)\))?/)
-  const sha = commitLn[1] || '???'
-  let branches = commitLn[2] || ''
+  const sha = (commitLn && commitLn[1]) || '???'
+  let branches = (commitLn && commitLn[2]) || ''
   branches = branches.split(', ')
   // Author: gui3 <gui.silvent@gmail.com>
   const authorLn = chunk.match(/Author: *([^\s]+) *(?:<([^\s]+)>)?/)
-  const alias = authorLn[1] || ''
-  const email = authorLn[2] || ''
+  const alias = (authorLn && authorLn[1]) || ''
+  const email = (authorLn && authorLn[2]) || ''
   const author = {
     alias,
     email
@@ -34,21 +34,22 @@ function parse (chunk) {
     match = match.value
     const bin = match[5] === 'Bin'
     const file = {
-      path: match[1].trim(),
+      path: match && match[1].trim(),
       bin: bin, // boolean
       changes: bin ? 0 : parseInt(match[2]) || 0,
       insertionRatio: match[3] !== undefined ? match[3].length : 0,
       deletionRatio: match[4] !== undefined ? match[4].length : 0
     }
-    file['name'] = file.path.split(/[\\/]/).slice(-1)[0]
+    file.name = file.path.split(/[\\/]/).slice(-1)[0]
     files.push(file)
   }
   // \n\n    scroll snapping, page and panel elements and heights calculations\n\n
-  const message = chunk.match(/[\n\r][\n\r](.+)[\n\r][\n\r]/)[1].trim()
+  const messageLn = chunk.match(/[\n\r][\n\r](.+)[\n\r][\n\r]/)
+  const message = (messageLn && messageLn[1].trim()) || ''
   //  22 files changed, 184 insertions(+), 55 deletions(-)
   const sumLn = chunk.match(/(?:(\d+) *insertion)(?:.*(\d+) *deletion)?/)
-  const insertions = parseInt(sumLn[1]) || 0
-  const deletions = parseInt(sumLn[2]) || 0
+  const insertions = (sumLn && parseInt(sumLn[1])) || 0
+  const deletions = (sumLn && parseInt(sumLn[2])) || 0
   return {
     sha,
     branches,
