@@ -16,10 +16,10 @@ function parse (chunk) {
   const origin = chunk.match(/Date: *(.+)/)[1]
   const d = new Date(origin)
   const iso = d.toISOString() // 2020-08-04T20:57:00.000+0200
-  const EPOCH = d.getTime()
+  const epoch = d.getTime()
   const date = {
     origin,
-    EPOCH,
+    epoch,
     iso
   }
   // src/components/layout/Footer.svelte     | 15 ++++++-----
@@ -34,19 +34,19 @@ function parse (chunk) {
     match = match.value
     const bin = match[5] === 'Bin'
     const file = {
-      path: match[1],
+      path: match[1].trim(),
       bin: bin, // boolean
       changes: bin ? 0 : parseInt(match[2]) || 0,
       insertionRatio: match[3] !== undefined ? match[3].length : 0,
       deletionRatio: match[4] !== undefined ? match[4].length : 0
     }
+    file['name'] = file.path.split(/[\\/]/).slice(-1)[0]
     files.push(file)
   }
   // \n\n    scroll snapping, page and panel elements and heights calculations\n\n
   const message = chunk.match(/[\n\r][\n\r](.+)[\n\r][\n\r]/)[1].trim()
   //  22 files changed, 184 insertions(+), 55 deletions(-)
   const sumLn = chunk.match(/(?:(\d+) *insertion)(?:.*(\d+) *deletion)?/)
-  console.log(sumLn)
   const insertions = parseInt(sumLn[1]) || 0
   const deletions = parseInt(sumLn[2]) || 0
   return {

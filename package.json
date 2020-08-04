@@ -4,8 +4,8 @@
   "description": "parse git logs into serializable js object, including changes/files/commits",
   "main": "src/index.js",
   "bin": {
-    "@gui3/git2stats": "bin/git2stats",
-    "git2stats": "bin/git2stats"
+    "@gui3/git2stats": "bin/cli.js",
+    "git2stats": "bin/cli.js"
   },
   "publishConfig": {
     "access": "public"
@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/gui3/git2stats/issues"
   },
-  "homepage": "https://github.com/gui3/git2stats#readme"
+  "homepage": "https://github.com/gui3/git2stats#readme",
+  "dependencies": {}
 }
