@@ -9,7 +9,7 @@ const rl = readline.createInterface({
   terminal: false
 })
 
-require('../src/index').getBasicStats(process.argv[2] || '.')
+require('../src/index').getAdvancedStats(process.argv[2] || '.')
   .then(data => {
     let cur = 0
     rl.on('line', function (line) {
