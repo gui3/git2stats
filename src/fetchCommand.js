@@ -2,14 +2,6 @@
 const childProcess = require('child_process')
 
 function fetchCommand (command, options) {
-  if (!(typeof options.setProgress === 'function')) {
-    if (options.silent) {
-      options.setProgress = chunkCount => {}
-    } else {
-      options.setProgress = chunkCount => chunkCount % 100 === 0 &&
-        console.log('fetched: ', chunkCount, ' chunks')
-    }
-  }
   return new Promise((resolve, reject) => {
     const sub = childProcess.exec(command, { cwd: options.dir })
     // (command[, args][, options])
@@ -21,6 +13,7 @@ function fetchCommand (command, options) {
       options.setProgress(data.length)
     })
     sub.stdout.on('close', function () {
+      options.verbose && options.logger(command)
       resolve(data)
     })
     sub.stderr.on('error', function (err) {

@@ -1,4 +1,4 @@
-function parse (chunk) {
+function parse (chunk, options = {}) {
   // commit b51f5e30c575c6106422dee60188055bf7829384 (origin/i18n, origin/dev, i18n, dev)
   const commitLn = chunk.match(/commit ([^\s]+) *(?:\((.+)\))?/)
   const sha = (commitLn && commitLn[1]) || '???'
@@ -59,7 +59,7 @@ function parse (chunk) {
     files,
     insertions,
     deletions,
-    _raw: chunk
+    raw: options.includeRaw ? chunk : '<raw data excluded>'
   }
 }
 

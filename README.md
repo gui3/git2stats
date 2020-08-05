@@ -5,12 +5,9 @@ a lightweight parser for `git log --stat` with 0 dependencies.
 > parses git logs into a complete serializable javascript object -
 > gives changes/files/commits
 
-For now it only parses the data of `git log --stat`
-and it is not really **branch-aware**
-but other functions are coming, to get more extended statistics
-like lines changed / file.
-The aim at long term is to gather enough data
-to be able to build github/gitlab like applications.
+For now it is not really **branch-aware**,
+but the **advanced** mode gathers quite more data than other packages,
+including **the lines that have changed and their line number** before/after change.
 
 ## install
 
@@ -19,6 +16,12 @@ npm install git2stats
 ```
 
 ## use
+
+the git2stats object exposes 2 **asynchronous** functions working similarly,
+`git2stats.getBasicStats(path[,options])`
+& `git2stats.getAdvancedStats(path[,options])`
+
+to learn more about output data, see nex section *structure of output*
 
 use it in your project like this
 
@@ -35,7 +38,7 @@ git2stats
 
 ```
 
-to save git stats in a **JSON** file :
+### to save git stats in a **JSON** file :
 
 ```js
 const path = require('path')
@@ -46,7 +49,7 @@ const git2stats = require('git2stats')
 const output = 'gitstats.json'
 
 git2stats
-  .getBasicStats(path.resolve(__dirname, '../')) // resolve your own path
+  .getAdvancedStats(path.resolve(__dirname, '../')) // resolve your own path
   .then(data => {
     fs.writeFile(
       output,
@@ -59,7 +62,8 @@ git2stats
 
 ```
 
-OR to save them in **YAML** file (*much more readable and lightweight*)
+### to save them in **YAML** file
+(*much more readable and lightweight*)
 
 ```js
 const path = require('path')
@@ -71,7 +75,7 @@ const git2stats = require('git2stats')
 const output = 'gitstats.yml'
 
 git2stats
-  .getBasicStats(path.resolve(__dirname, '../')) // resolve your own path again
+  .getAdvancedStats(path.resolve(__dirname, '../')) // resolve your own path again
   .then(data => {
     fs.writeFile(
       output,
@@ -83,7 +87,72 @@ git2stats
   .catch(err => console.error(err))
 ```
 
-## sample of the output
+## structure of output
+
+you have different (similar, but more complete) output
+depending on the function you call
+
+- `.getBasicStats` will not have the `diff` section for files
+
+```js
+[                         // array of commits
+  {
+    "sha": "",            // the sha of the commit
+    "branches": []        // branches are not supported for now
+    "author": {
+      "alias": "",        // author name
+      "email": ""         // author email if provided
+    },
+    "date": {             // date in 3 formats
+      "origin": "Wed Aug 5 13:40:57 2020 +0200",
+      "epoch": 1596627657000,
+      "iso": "2020-08-05T11:40:57.000Z"
+    },
+    "message": "",        // commit message
+    "files": [            // array of files impacted by commit
+      {
+        "path": "",            // path of file from root
+        // BEWARE : can contain {ex => new} if file was moved
+        // TODO: handle this
+        "bin": false,          // true if file is binary
+        "changes": 19,         // total changes
+        "insertionRatio": 10,  // the number of green + in git log --stat
+        "deletionRatio": 9,    // the number of red - in git log --stat
+        "name": "",            // the file's name without the path
+        "diff": {              // the changes (if printable, no binary files)
+          "lines": [           // array of lines
+            {                       // one line
+              "change": " ",        // space for unchanged, + for added, - for removed
+              "lineBefore": 17,     // the index of this line before
+              "lineAfter": 17,      // index after
+              "content": ""         // the content of the line (script)
+            }
+          ], // back to the file
+          "contentBefore": "", // a digest of the content of the file before change
+          "contentAfter": "",  // content after change
+          // (see section about commit.files[i].diff.contentAfter)
+          "pathBefore": "",    // the name before
+          "pathAfter": "",     // the path after
+          // TODO: handle deleted or moved files
+        } // end of diff
+      } // end of file
+    ], // back to commit
+    "insertions": 25,     // total insertions of commit
+    "deletions": 1,       // total deletions of commit
+    "raw": "<raw data excluded>"   
+    // if option "includeRaw", includes the git log result
+  } // end of commit
+] // end of data
+```
+
+## samples of output
+
+these samples's key may not be updated,
+**please refer to the section above (structure of output)**
+for regularly updated info
+
+
+### .getBasicStats
 
 (in json)
 ```json
@@ -182,6 +251,77 @@ git2stats
      src/utils/parse.js        |  0
      6 files changed, 70 insertions(+), 1 deletion(-)
 ```
+
+
+### .getAdvancedStats
+(in json)
+```js
+[                               // array of commits
+  {
+    "sha": "b02912d40576f4860e4c7cb84ee71c6593b4e295",
+    "branches": [              // branches are not supported for now
+      ""
+    ],
+    "author": {
+      "alias": "gui3",         // author name
+      "email": "gui.silvent@gmail.com"  // author email if provided
+    },
+    "date": {                  // date in 3 formats
+      "origin": "Wed Aug 5 13:40:57 2020 +0200",
+      "epoch": 1596627657000,
+      "iso": "2020-08-05T11:40:57.000Z"
+    },
+    "message": "yan testing",  // commit message
+    "files": [                 // array of files impacted by commit
+      {
+        "path": "tests/_drafts/dataLoader.js",  // path of file from root
+        "bin": false,          // true if dile is binary
+        "changes": 19,         // total changes
+        "insertionRatio": 10,  // the number of green + in git log --stat
+        "deletionRatio": 9,    // the number of red - in git log --stat
+        "name": "dataLoader.js",  // the file's name without the path
+        "diff": {              // the changes (if printable, no binary files)
+          "lines": [           // array of lines
+            {
+              "change": " ",   // this line is unchanged (space)
+              "lineBefore": 17,
+              "lineAfter": 17,
+              "content": "function dataLoaderAsync (arg1, arg2) {"
+            },
+            {
+              "change": "-",   // this line was removed (-)
+              "lineBefore": 24,
+              "lineAfter": -1,
+              "content": "  const result = loader('hello', 'world')"
+            },
+            {
+              "change": "+",   // this line was added (+)
+              "lineBefore": -1,
+              "lineAfter": 24,
+              "content": "  const result = loader.get('hello', 'world')"
+            }
+            // {another line},
+            // {another line},
+          ],
+          "contentBefore": "\n@@ from line 16 @@\nfunction dataLoaderAsync (arg1, arg2) {\n  })\n}\n\nconst loader = multiMemoize(dataLoaderAsync, 60*60*1000)\n\nfunction test (text) {\n  const result = loader('hello', 'world')\n  console.log(text + JSON.stringify(result))\n  result.then(data => console.log(text + ':result:' + data))\n    .catch(err => { throw err })\n\n}\ntest('1:')\ntest('2:')\ntest('3:')\ntest('4:')\n\nsetTimeout(_=> {\n  test('5 +1000:')\n},1000)\n\nsetTimeout(_=> {\n  test('5 +6000:')\n},6000)\n\nsetTimeout(_=> {\n  test('5 +6500:')\n},6500)\n\n/*\nloader.get('hello', 'world')\n",
+          "contentAfter": "\n@@ from line 16 @@\nfunction dataLoaderAsync (arg1, arg2) {\n  })\n}\n\nconst loader = multiMemoize(dataLoaderAsync, 60 * 60 * 1000)\n\nfunction test (text) {\n  const result = loader.get('hello', 'world')\n  console.log(text + JSON.stringify(result))\n  result.then(data => console.log(text + ':result:' + data))\n    .catch(err => { throw err })\n}\n\ntest('1:')\ntest('2:')\ntest('3:')\nloader.clean()\ntest('4:')\n\nsetTimeout(_ => {\n  test('5 +1000:')\n}, 1000)\n\nsetTimeout(_ => {\n  test('5 +6000:')\n}, 6000)\n\nsetTimeout(_ => {\n  test('5 +6500:')\n}, 6500)\n\n/*\nloader.get('hello', 'world')\n",
+          "nameBefore": "tests/_drafts/dataLoader.js ",
+          "nameAfter": "tests/_drafts/dataLoader.js",
+          "deleted": false
+        }
+      }
+      // ,{ another file}
+      // ,{ another file}
+    ],
+    "insertions": 25, // total insertions of commit
+    "deletions": 1,   // total deletions of commit
+    "raw": "<raw data excluded>"   
+    // if option "includeRaw", includes the git log result
+  },
+  // { another commit},
+  // { another commit} ...
+```
+
 
 ## command-line tool
 

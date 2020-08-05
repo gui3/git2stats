@@ -2,9 +2,9 @@ const path = require('path')
 const fs = require('fs')
 const git2stats = require('../src/index.js')
 
-const output = 'gitstats.json'
+const output = path.resolve(__dirname, 'basicOutput.json')
 
-git2stats.getBasicStats(path.resolve(__dirname, '../'))
+git2stats.getBasicStats(path.resolve(__dirname, '../'), { silent: false })
   .then(data => {
     fs.writeFile(
       output,

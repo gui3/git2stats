@@ -5,9 +5,9 @@ const yaml = require('js-yaml') // you need to npm install this !!!
 
 const git2stats = require('../src/index')
 
-const output = 'gitstats.yml'
+const output = 'basicOutput.yml'
 
-git2stats.getBasicStats(path.resolve(__dirname, '../'))
+git2stats.getBasicStats(path.resolve(__dirname, '../'), { silent: false })
   .then(data => {
     fs.writeFile(
       output,
