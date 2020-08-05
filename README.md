@@ -1,9 +1,16 @@
 # git2stats
 
-a lightweight parser for `git log --stat` with 0 dependencies
+a lightweight parser for `git log --stat` with 0 dependencies.
 
 > parses git logs into a complete serializable javascript object -
 > gives changes/files/commits
+
+For now it only parses the data of `git log --stat`
+and it is not really **branch-aware**
+but other functions are coming, to get more extended statistics
+like lines changed / file.
+The aim at long term is to gather enough data
+to be able to build github/gitlab like applications.
 
 ## install
 
@@ -18,7 +25,8 @@ use it in your project like this
 ```js
 const git2stats = require('git2stats')
 
-git2stats('C:/path/to/your/git/repository')
+git2stats
+  .getBasicStats('C:/path/to/your/git/repository')
   .then(data => {
     // your magik goes here
     console.log(data)
@@ -37,7 +45,8 @@ const git2stats = require('git2stats')
 
 const output = 'gitstats.json'
 
-git2stats(path.resolve(__dirname, '../')) // resolve your own path
+git2stats
+  .getBasicStats(path.resolve(__dirname, '../')) // resolve your own path
   .then(data => {
     fs.writeFile(
       output,
@@ -61,7 +70,8 @@ const git2stats = require('git2stats')
 
 const output = 'gitstats.yml'
 
-git2stats(path.resolve(__dirname, '../')) // resolve your own path again
+git2stats
+  .getBasicStats(path.resolve(__dirname, '../')) // resolve your own path again
   .then(data => {
     fs.writeFile(
       output,
@@ -176,6 +186,10 @@ git2stats(path.resolve(__dirname, '../')) // resolve your own path again
 ## command-line tool
 
 for fun, this package works also as a command line tool,
-but I'm not so shure how you can make it work
+you can use it anywhere with npx
+
+```
+npx git2stats
+```
 
 Anyway, it only allows you to preview the json data that's extracted...

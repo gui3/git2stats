@@ -4,7 +4,7 @@ const git2stats = require('../src/index.js')
 
 const output = 'gitstats.json'
 
-git2stats(path.resolve(__dirname, '../'))
+git2stats.getBasicStats(path.resolve(__dirname, '../'))
   .then(data => {
     fs.writeFile(
       output,

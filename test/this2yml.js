@@ -7,7 +7,7 @@ const git2stats = require('../src/index')
 
 const output = 'gitstats.yml'
 
-git2stats(path.resolve(__dirname, '../')) // resolve your own path again
+git2stats.getBasicStats(path.resolve(__dirname, '../'))
   .then(data => {
     fs.writeFile(
       output,

@@ -9,11 +9,8 @@ const rl = readline.createInterface({
   terminal: false
 })
 
-require('../src/index')(process.argv[2] || '.')
+require('../src/index').getBasicStats(process.argv[2] || '.')
   .then(data => {
-    console.log('loaded ' + data.length + ' commits')
-    console.log('>>>> press "ENTER" to preview, "q" to quit')
-
     let cur = 0
     rl.on('line', function (line) {
       if (line === 'q' || cur >= data.length) {
@@ -25,5 +22,7 @@ require('../src/index')(process.argv[2] || '.')
         cur++
       }
     })
+    console.log('loaded ' + (data.length || 0) + ' commits')
+    console.log('>>>> press "ENTER" to preview, "q" to quit')
   })
   .catch(err => { console.log(err) })

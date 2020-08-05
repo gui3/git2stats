@@ -1,5 +1,180 @@
 [
   {
+    "sha": "3f3e4ba465e47dbdb60e46dd87340a603a9e7d0a",
+    "branches": [
+      ""
+    ],
+    "author": {
+      "alias": "gui3",
+      "email": "gui.silvent@gmail.com"
+    },
+    "date": {
+      "origin": "Wed Aug 5 00:37:07 2020 +0200",
+      "epoch": 1596580627000,
+      "iso": "2020-08-04T22:37:07.000Z"
+    },
+    "message": ":bug: parser errors",
+    "files": [
+      {
+        "path": "bin/cli.js",
+        "bin": false,
+        "changes": 1,
+        "insertionRatio": 1,
+        "deletionRatio": 0,
+        "name": "cli.js"
+      },
+      {
+        "path": "package.json",
+        "bin": false,
+        "changes": 2,
+        "insertionRatio": 1,
+        "deletionRatio": 1,
+        "name": "package.json"
+      },
+      {
+        "path": "src/index.js",
+        "bin": false,
+        "changes": 2,
+        "insertionRatio": 1,
+        "deletionRatio": 1,
+        "name": "index.js"
+      },
+      {
+        "path": "src/parse.js",
+        "bin": false,
+        "changes": 19,
+        "insertionRatio": 10,
+        "deletionRatio": 9,
+        "name": "parse.js"
+      }
+    ],
+    "insertions": 13,
+    "deletions": 1,
+    "_raw": "commit 3f3e4ba465e47dbdb60e46dd87340a603a9e7d0a\nAuthor: gui3 <gui.silvent@gmail.com>\nDate:   Wed Aug 5 00:37:07 2020 +0200\n\n    :bug: parser errors\n\n bin/cli.js   |  1 +\n package.json |  2 +-\n src/index.js |  2 +-\n src/parse.js | 19 ++++++++++---------\n 4 files changed, 13 insertions(+), 11 deletions(-)\n"
+  },
+  {
+    "sha": "f1f9ed2727ca9a2dfda3b9bb0cee47926e283e02",
+    "branches": [
+      ""
+    ],
+    "author": {
+      "alias": "gui3",
+      "email": "gui.silvent@gmail.com"
+    },
+    "date": {
+      "origin": "Wed Aug 5 00:11:21 2020 +0200",
+      "epoch": 1596579081000,
+      "iso": "2020-08-04T22:11:21.000Z"
+    },
+    "message": "readme updated with example of output",
+    "files": [
+      {
+        "path": "README.md",
+        "bin": false,
+        "changes": 100,
+        "insertionRatio": 62,
+        "deletionRatio": 0,
+        "name": "README.md"
+      }
+    ],
+    "insertions": 100,
+    "deletions": 0,
+    "_raw": "\ncommit f1f9ed2727ca9a2dfda3b9bb0cee47926e283e02\nAuthor: gui3 <gui.silvent@gmail.com>\nDate:   Wed Aug 5 00:11:21 2020 +0200\n\n    readme updated with example of output\n\n README.md | 100 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n 1 file changed, 100 insertions(+)\n"
+  },
+  {
+    "sha": "c2289a2b43a123f4e00309f983a5bd4f718c9676",
+    "branches": [
+      ""
+    ],
+    "author": {
+      "alias": "gui3",
+      "email": "gui.silvent@gmail.com"
+    },
+    "date": {
+      "origin": "Wed Aug 5 00:07:00 2020 +0200",
+      "epoch": 1596578820000,
+      "iso": "2020-08-04T22:07:00.000Z"
+    },
+    "message": "readme and exports to json and yaml",
+    "files": [
+      {
+        "path": "README.md",
+        "bin": false,
+        "changes": 77,
+        "insertionRatio": 21,
+        "deletionRatio": 0,
+        "name": "README.md"
+      },
+      {
+        "path": "bin/cli.js",
+        "bin": false,
+        "changes": 26,
+        "insertionRatio": 6,
+        "deletionRatio": 1,
+        "name": "cli.js"
+      },
+      {
+        "path": "gitstats.json",
+        "bin": false,
+        "changes": 201,
+        "insertionRatio": 54,
+        "deletionRatio": 0,
+        "name": "gitstats.json"
+      },
+      {
+        "path": "gitstats.yml",
+        "bin": false,
+        "changes": 187,
+        "insertionRatio": 50,
+        "deletionRatio": 0,
+        "name": "gitstats.yml"
+      },
+      {
+        "path": "package.json",
+        "bin": false,
+        "changes": 7,
+        "insertionRatio": 1,
+        "deletionRatio": 1,
+        "name": "package.json"
+      },
+      {
+        "path": "src/parse.js",
+        "bin": false,
+        "changes": 8,
+        "insertionRatio": 1,
+        "deletionRatio": 2,
+        "name": "parse.js"
+      },
+      {
+        "path": "test/autoTest.js",
+        "bin": false,
+        "changes": 6,
+        "insertionRatio": 0,
+        "deletionRatio": 2,
+        "name": "autoTest.js"
+      },
+      {
+        "path": "test/this2json.js",
+        "bin": false,
+        "changes": 16,
+        "insertionRatio": 5,
+        "deletionRatio": 0,
+        "name": "this2json.js"
+      },
+      {
+        "path": "test/this2yml.js",
+        "bin": false,
+        "changes": 19,
+        "insertionRatio": 6,
+        "deletionRatio": 0,
+        "name": "this2yml.js"
+      }
+    ],
+    "insertions": 533,
+    "deletions": 4,
+    "_raw": "\ncommit c2289a2b43a123f4e00309f983a5bd4f718c9676\nAuthor: gui3 <gui.silvent@gmail.com>\nDate:   Wed Aug 5 00:07:00 2020 +0200\n\n    readme and exports to json and yaml\n\n README.md         |  77 +++++++++++++++++++++\n bin/cli.js        |  26 ++++++-\n gitstats.json     | 201 ++++++++++++++++++++++++++++++++++++++++++++++++++++++\n gitstats.yml      | 187 ++++++++++++++++++++++++++++++++++++++++++++++++++\n package.json      |   7 +-\n src/parse.js      |   8 +--\n test/autoTest.js  |   6 --\n test/this2json.js |  16 +++++\n test/this2yml.js  |  19 ++++++\n 9 files changed, 533 insertions(+), 14 deletions(-)\n"
+  },
+  {
     "sha": "970c30f71c1c9db891e46e39dce4c3ad5a598af7",
     "branches": [
       ""
@@ -82,7 +257,7 @@
     ],
     "insertions": 125,
     "deletions": 0,
-    "_raw": "commit 970c30f71c1c9db891e46e39dce4c3ad5a598af7\nAuthor: gui3 <gui.silvent@gmail.com>\nDate:   Tue Aug 4 22:46:00 2020 +0200\n\n    v0.0.1 ready to use, setup cli\n\n bin/cli.js                |  4 +--\n package-lock.json         |  5 ++++\n src/fetchCommand.js       | 32 +++++++++++++++++++++++\n src/index.js              | 18 ++++++++++---\n src/parse.js              | 65 +++++++++++++++++++++++++++++++++++++++++++++++\n src/utils/fetchCommand.js | 25 ------------------\n src/utils/parse.js        |  0\n test/autoTest.js          |  6 +++++\n 8 files changed, 125 insertions(+), 30 deletions(-)\n"
+    "_raw": "\ncommit 970c30f71c1c9db891e46e39dce4c3ad5a598af7\nAuthor: gui3 <gui.silvent@gmail.com>\nDate:   Tue Aug 4 22:46:00 2020 +0200\n\n    v0.0.1 ready to use, setup cli\n\n bin/cli.js                |  4 +--\n package-lock.json         |  5 ++++\n src/fetchCommand.js       | 32 +++++++++++++++++++++++\n src/index.js              | 18 ++++++++++---\n src/parse.js              | 65 +++++++++++++++++++++++++++++++++++++++++++++++\n src/utils/fetchCommand.js | 25 ------------------\n src/utils/parse.js        |  0\n test/autoTest.js          |  6 +++++\n 8 files changed, 125 insertions(+), 30 deletions(-)\n"
   },
   {
     "sha": "8622a211ea359454c72090b3bbf3a3aae2a67325",

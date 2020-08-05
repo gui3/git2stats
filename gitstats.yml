@@ -1,3 +1,169 @@
+- sha: 3f3e4ba465e47dbdb60e46dd87340a603a9e7d0a
+  branches:
+    - ''
+  author:
+    alias: gui3
+    email: gui.silvent@gmail.com
+  date:
+    origin: 'Wed Aug 5 00:37:07 2020 +0200'
+    epoch: 1596580627000
+    iso: '2020-08-04T22:37:07.000Z'
+  message: ':bug: parser errors'
+  files:
+    - path: bin/cli.js
+      bin: false
+      changes: 1
+      insertionRatio: 1
+      deletionRatio: 0
+      name: cli.js
+    - path: package.json
+      bin: false
+      changes: 2
+      insertionRatio: 1
+      deletionRatio: 1
+      name: package.json
+    - path: src/index.js
+      bin: false
+      changes: 2
+      insertionRatio: 1
+      deletionRatio: 1
+      name: index.js
+    - path: src/parse.js
+      bin: false
+      changes: 19
+      insertionRatio: 10
+      deletionRatio: 9
+      name: parse.js
+  insertions: 13
+  deletions: 1
+  _raw: |
+    commit 3f3e4ba465e47dbdb60e46dd87340a603a9e7d0a
+    Author: gui3 <gui.silvent@gmail.com>
+    Date:   Wed Aug 5 00:37:07 2020 +0200
+
+        :bug: parser errors
+
+     bin/cli.js   |  1 +
+     package.json |  2 +-
+     src/index.js |  2 +-
+     src/parse.js | 19 ++++++++++---------
+     4 files changed, 13 insertions(+), 11 deletions(-)
+- sha: f1f9ed2727ca9a2dfda3b9bb0cee47926e283e02
+  branches:
+    - ''
+  author:
+    alias: gui3
+    email: gui.silvent@gmail.com
+  date:
+    origin: 'Wed Aug 5 00:11:21 2020 +0200'
+    epoch: 1596579081000
+    iso: '2020-08-04T22:11:21.000Z'
+  message: readme updated with example of output
+  files:
+    - path: README.md
+      bin: false
+      changes: 100
+      insertionRatio: 62
+      deletionRatio: 0
+      name: README.md
+  insertions: 100
+  deletions: 0
+  _raw: |
+
+    commit f1f9ed2727ca9a2dfda3b9bb0cee47926e283e02
+    Author: gui3 <gui.silvent@gmail.com>
+    Date:   Wed Aug 5 00:11:21 2020 +0200
+
+        readme updated with example of output
+
+     README.md | 100 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     1 file changed, 100 insertions(+)
+- sha: c2289a2b43a123f4e00309f983a5bd4f718c9676
+  branches:
+    - ''
+  author:
+    alias: gui3
+    email: gui.silvent@gmail.com
+  date:
+    origin: 'Wed Aug 5 00:07:00 2020 +0200'
+    epoch: 1596578820000
+    iso: '2020-08-04T22:07:00.000Z'
+  message: readme and exports to json and yaml
+  files:
+    - path: README.md
+      bin: false
+      changes: 77
+      insertionRatio: 21
+      deletionRatio: 0
+      name: README.md
+    - path: bin/cli.js
+      bin: false
+      changes: 26
+      insertionRatio: 6
+      deletionRatio: 1
+      name: cli.js
+    - path: gitstats.json
+      bin: false
+      changes: 201
+      insertionRatio: 54
+      deletionRatio: 0
+      name: gitstats.json
+    - path: gitstats.yml
+      bin: false
+      changes: 187
+      insertionRatio: 50
+      deletionRatio: 0
+      name: gitstats.yml
+    - path: package.json
+      bin: false
+      changes: 7
+      insertionRatio: 1
+      deletionRatio: 1
+      name: package.json
+    - path: src/parse.js
+      bin: false
+      changes: 8
+      insertionRatio: 1
+      deletionRatio: 2
+      name: parse.js
+    - path: test/autoTest.js
+      bin: false
+      changes: 6
+      insertionRatio: 0
+      deletionRatio: 2
+      name: autoTest.js
+    - path: test/this2json.js
+      bin: false
+      changes: 16
+      insertionRatio: 5
+      deletionRatio: 0
+      name: this2json.js
+    - path: test/this2yml.js
+      bin: false
+      changes: 19
+      insertionRatio: 6
+      deletionRatio: 0
+      name: this2yml.js
+  insertions: 533
+  deletions: 4
+  _raw: |
+
+    commit c2289a2b43a123f4e00309f983a5bd4f718c9676
+    Author: gui3 <gui.silvent@gmail.com>
+    Date:   Wed Aug 5 00:07:00 2020 +0200
+
+        readme and exports to json and yaml
+
+     README.md         |  77 +++++++++++++++++++++
+     bin/cli.js        |  26 ++++++-
+     gitstats.json     | 201 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     gitstats.yml      | 187 ++++++++++++++++++++++++++++++++++++++++++++++++++
+     package.json      |   7 +-
+     src/parse.js      |   8 +--
+     test/autoTest.js  |   6 --
+     test/this2json.js |  16 +++++
+     test/this2yml.js  |  19 ++++++
+     9 files changed, 533 insertions(+), 14 deletions(-)
 - sha: 970c30f71c1c9db891e46e39dce4c3ad5a598af7
   branches:
     - ''
@@ -61,6 +227,7 @@
   insertions: 125
   deletions: 0
   _raw: |
+
     commit 970c30f71c1c9db891e46e39dce4c3ad5a598af7
     Author: gui3 <gui.silvent@gmail.com>
     Date:   Tue Aug 4 22:46:00 2020 +0200
