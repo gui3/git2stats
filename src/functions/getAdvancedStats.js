@@ -1,11 +1,11 @@
-const sanitizeDir = require('./sanitizeDir')
-const setProgress = require('./setProgress')
-const logger = require('./logger')
-const fetchCommand = require('./fetchCommand')
-const parselogstat = require('./parselogstat')
-const logs2diff = require('./logs2diff')
-const getCommitDiffs = require('./getCommitDiffs')
-const zipCommitDiffs = require('./zipCommitDiffs')
+const sanitizeDir = require('../shared/sanitizeDir')
+const setProgress = require('../shared/setProgress')
+const logger = require('../shared/logger')
+const fetchCommand = require('../shared/fetchCommand')
+const parselogstat = require('../shared/parselogstat')
+const getCommitDiffs = require('../advanced/getCommitDiffs')
+const zipCommitDiffs = require('../advanced/zipCommitDiffs')
+const GitData = require('../classes/GitData')
 
 async function getAdvancedStats (dir, options = { silent: true }) {
   options.dir = sanitizeDir(dir, options)
@@ -24,7 +24,7 @@ async function getAdvancedStats (dir, options = { silent: true }) {
     })
     .catch(err => { console.log(err) })
   options.logger('git2stats -> ' + data.length + ' commits')
-  return data
+  return new GitData(data)
 }
 
 module.exports = getAdvancedStats

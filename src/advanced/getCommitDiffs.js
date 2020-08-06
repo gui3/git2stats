@@ -1,4 +1,4 @@
-const fetchCommand = require('./fetchCommand')
+const fetchCommand = require('../shared/fetchCommand')
 const parseDiffs = require('./parseDiffs')
 
 async function getCommitDiffs (sha, options) {

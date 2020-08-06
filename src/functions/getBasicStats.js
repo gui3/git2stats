@@ -1,8 +1,9 @@
-const fetchCommand = require('./fetchCommand')
-const parselogstat = require('./parselogstat')
-const sanitizeDir = require('./sanitizeDir')
-const setProgress = require('./setProgress')
-const logger = require('./logger')
+const fetchCommand = require('../shared/fetchCommand')
+const parselogstat = require('../shared/parselogstat')
+const sanitizeDir = require('../shared/sanitizeDir')
+const setProgress = require('../shared/setProgress')
+const logger = require('../shared/logger')
+// const GitData = require('../classes/GitData')
 
 async function getBasicStats (dir, options = { silent: true }) {
   options.dir = sanitizeDir(dir, options)
