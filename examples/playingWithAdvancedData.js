@@ -35,6 +35,6 @@ const l = LazyLoader
 
 l.load()
   .then(data => {
-    console.log(data.getFile('src/index.js'))
+    // console.log(data.getFile('src/index.js'))
   })
   .catch(err => console.log(err))

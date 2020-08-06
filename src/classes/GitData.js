@@ -59,7 +59,14 @@ class GitData extends Array {
   }
 
   toJson (options = { indent: 2 }) {
-    return JSON.stringify(this, null, options.indend)
+    return JSON.stringify(
+      this,
+      (key, value) => key.startsWith('_') ? undefined : value,
+      options.indent)
+  }
+
+  toString () {
+    return this.toJson()
   }
 }
 

@@ -2,7 +2,7 @@ class CommitDigest extends Object {
   constructor (rawCommit, gitdata) {
     super({})
     this.sha = rawCommit.sha
-    this.isoDate = rawCommit.date.iso
+    this.epoch = rawCommit.date.epoch
     this.message = rawCommit.message
     this._gitData = gitdata
   }
@@ -12,7 +12,15 @@ class CommitDigest extends Object {
   }
 
   toJson (options = { indent: 2 }) {
-    return JSON.stringify(this, null, options.indend)
+    return JSON.stringify(
+      this,
+      (key, value) => key.startsWith('_') ? undefined : value,
+      options.indent
+    )
+  }
+
+  toString () {
+    return this.toJson()
   }
 }
 

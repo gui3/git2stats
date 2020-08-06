@@ -1,6 +1,6 @@
 {
   "name": "git2stats",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "parse git logs into serializable js object, including line changes",
   "main": "src/index.js",
   "bin": {

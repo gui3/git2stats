@@ -1,8 +1,8 @@
 class LineDigest extends Object {
   constructor (rawLine, file, rawCommit, gitdata) {
     super({})
-    this.line = rawLine.lineAfter
-    this.isoDate = rawCommit.date.iso
+    this.row = rawLine.rowAfter
+    this.epoch = rawCommit.date.epoch
     this.sha = rawCommit.sha
     this.content = rawLine.content
     this._file = file
@@ -18,7 +18,15 @@ class LineDigest extends Object {
   }
 
   toJson (options = { indent: 2 }) {
-    return JSON.stringify(this, null, options.indend)
+    return JSON.stringify(
+      this,
+      (key, value) => key.startsWith('_') ? undefined : value,
+      options.indent
+    )
+  }
+
+  toString () {
+    return this.toJson()
   }
 }
 

@@ -123,8 +123,8 @@ depending on the function you call
           "lines": [           // array of lines
             {                       // one line
               "change": " ",        // space for unchanged, + for added, - for removed
-              "lineBefore": 17,     // the index of this line before
-              "lineAfter": 17,      // index after
+              "rowBefore": 17,     // the index of this line before
+              "rowAfter": 17,      // index after
               "content": ""         // the content of the line (script)
             }
           ], // back to the file
@@ -284,20 +284,20 @@ for regularly updated info
           "lines": [           // array of lines
             {
               "change": " ",   // this line is unchanged (space)
-              "lineBefore": 17,
-              "lineAfter": 17,
+              "rowBefore": 17,
+              "rowAfter": 17,
               "content": "function dataLoaderAsync (arg1, arg2) {"
             },
             {
               "change": "-",   // this line was removed (-)
-              "lineBefore": 24,
-              "lineAfter": -1,
+              "rowBefore": 24,
+              "rowAfter": -1,
               "content": "  const result = loader('hello', 'world')"
             },
             {
               "change": "+",   // this line was added (+)
-              "lineBefore": -1,
-              "lineAfter": 24,
+              "rowBefore": -1,
+              "rowAfter": 24,
               "content": "  const result = loader.get('hello', 'world')"
             }
             // {another line},

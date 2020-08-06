@@ -15,32 +15,32 @@ function process (info, exfile) {
   lines.forEach(linestr => {
     const change = linestr[0]
     const content = linestr.slice(1)
-    let lineBefore = -1
-    let lineAfter = -1
+    let rowBefore = -1
+    let rowAfter = -1
     switch (change) {
       case ' ':
         info.exstart++
         info.newstart++
-        lineBefore = info.exstart
-        lineAfter = info.newstart
+        rowBefore = info.exstart
+        rowAfter = info.newstart
         file.contentBefore += content + '\n'
         file.contentAfter += content + '\n'
         break
       case '+':
         info.newstart++
-        lineAfter = info.newstart
+        rowAfter = info.newstart
         file.contentAfter += content + '\n'
         break
       case '-':
         info.exstart++
-        lineBefore = info.exstart
+        rowBefore = info.exstart
         file.contentBefore += content + '\n'
         break
     }
     file.lines.push({
       change,
-      lineBefore,
-      lineAfter,
+      rowBefore,
+      rowAfter,
       content
     })
   })

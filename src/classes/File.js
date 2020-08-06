@@ -35,14 +35,14 @@ class File extends Object {
     }
   }
 
-  getContentAtIsoDate (isoDate) {
+  getContentAtEpoch (epoch) {
     const lines = {}
-    this.linesDigest
+    this.linesDigests
       .forEach(lineD => {
-        const existing = lines[lineD.line]
-        if (lineD.isoDate < isoDate &&
+        const existing = lines[lineD.row]
+        if (lineD.epoch < epoch &&
             (!existing ||
-              existing.isoDate < lineD.isoDate)) lines[lineD.line] = lineD
+              existing.epoch < lineD.epoch)) lines[lineD.row] = lineD
         // keep only last modified
       })
     return Object.values(lines)
@@ -53,12 +53,19 @@ class File extends Object {
     if (!commit) {
       throw new Error('commit ' + sha + 'not found in file ' + this.path)
     }
-    const isoDate = commit.isoDate
-    return this.getContentAtIsoDate(isoDate)
+    const epoch = commit.epoch
+    return this.getContentAtEpoch(epoch)
   }
 
   toJson (options = { indent: 2 }) {
-    return JSON.stringify(this, null, options.indend)
+    return JSON.stringify(
+      this,
+      (key, value) => key.startsWith('_') ? undefined : value,
+      options.indent)
+  }
+
+  toString () {
+    return this.toJson()
   }
 }
 

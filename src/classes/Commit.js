@@ -1,5 +1,3 @@
-
-
 class Commit extends Object {
   constructor (rawCommit, gitdata) {
     super(rawCommit)
@@ -29,7 +27,15 @@ class Commit extends Object {
   }
 
   toJson (options = { indent: 2 }) {
-    return JSON.stringify(this, null, options.indend)
+    return JSON.stringify(
+      this,
+      (key, value) => key.startsWith('_') ? undefined : value,
+      options.indent
+    )
+  }
+
+  toString () {
+    return this.toJson()
   }
 }
 
