@@ -4,7 +4,10 @@ const git2stats = require('../src/index.js')
 
 const output = path.resolve(__dirname, 'advancedOutput.json')
 
-git2stats.getAdvancedStats(path.resolve(__dirname, '../'), { silent: false, verbose: true })
+git2stats.getAdvancedStats(
+  path.resolve(__dirname, '../'),
+  { silent: false, verbose: true }
+)
   .then(data => {
     fs.writeFile(
       output,

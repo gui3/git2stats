@@ -2,8 +2,8 @@ const processDiff = require('./processDiff')
 
 function parse (raw) {
   const regex =
-    /(?:diff --git a\/(.+) *b\/(.+)(?:.|[\r\n])*?)?@@ *-(\d+),\d+ *\+(\d+),\d+ *@@[\n\r]?((?:[ +-].*(?:[\n\r]|$)+)+)/g
-    //                 1         2                       3            4                 5
+    /(?:diff --git a\/(.*) b\/(.*)(?:[\n\r](?!diff --git).*[\n\r]?)+?)?@@ *-(\d+),\d+ *\+(\d+),\d+ *@@[\n\r]?((?:[ +-].*(?:[\n\r]|$)+)+)/g
+    //                 1         2                                            3            4                 5
   const matches = raw.matchAll(regex)
 
   const files = {}
@@ -13,7 +13,7 @@ function parse (raw) {
   let file = {}
   while (!(match = matches.next()).done) {
     match = match.value
-    if (match[1]) {
+    if (match[1] || match[2]) {
       exname = match[1]
       newname = match[2]
       file = {}

@@ -1,7 +1,22 @@
+const FileCollection = require('./FileCollection')
+// const File = require('./File')
+
 class Commit extends Object {
   constructor (rawCommit, gitdata) {
-    super(rawCommit)
+    super()
+    this.message = rawCommit.message
+    this.sha = rawCommit.sha
+    this.date = rawCommit.date
+    this.branches = rawCommit.branches
+    this.author = rawCommit.author
+    this.changes = rawCommit.changes
     this._gitdata = gitdata
+    this._raw = rawCommit
+
+    this.files = new FileCollection()
+    rawCommit.files.forEach(file => {
+      this.files.push(this._gitdata.getFile(file.path))
+    })
   }
 
   getAllFilesContent () {
@@ -26,6 +41,10 @@ class Commit extends Object {
     }
   }
 
+  getRaw () {
+    return this._raw
+  }
+
   toJson (options = { indent: 2 }) {
     return JSON.stringify(
       this,
@@ -35,7 +54,7 @@ class Commit extends Object {
   }
 
   toString () {
-    return this.toJson()
+    return '<Commit ' + this.sha + ' date: ' + this.date.iso + '>'
   }
 }
 

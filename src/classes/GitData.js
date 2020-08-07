@@ -1,17 +1,24 @@
+const CommitCollection = require('./CommitCollection')
 const Commit = require('./Commit')
 const File = require('./File')
 
-class GitData extends Array {
-  constructor (array) {
-    super(...array)
+class GitData extends CommitCollection {
+  getCommit (sha) {
+    return this.getAllCommits().find(c => c.sha === sha)
   }
 
-  getCommit (sha) {
-    return new Commit(this.find(c => c.sha === sha), this)
+  searchCommitMessage (regex) {
+    if (!(regex instanceof RegExp)) regex = new RegExp(regex)
+    return this.getAllCommits().filter(c => c.message.match(regex))
+  }
+
+  searchFilePath (regex) {
+    if (!(regex instanceof RegExp)) regex = new RegExp(regex)
+    return this.getAllFiles().filter(f => f.path.match(regex) || f.pathBefore.match(regex))
   }
 
   getAllCommits () {
-    return Object.values(this.getCommitsDict())
+    return new CommitCollection(Object.values(this.getCommitsDict()))
   }
 
   getCommitsDict (save = true) {
@@ -38,9 +45,10 @@ class GitData extends Array {
   getFilesDict (save = true) {
     if (this._filesDict === undefined) {
       const files = {}
+      // const commits = this.getAllCommits()
       for (let ci = 0; ci < this.length; ci++) {
-        if (this[ci].files === undefined) continue
         const rawCommit = this[ci]
+        if (rawCommit.files === undefined) continue
         for (let fi = 0; fi < rawCommit.files.length; fi++) {
           const rawFile = rawCommit.files[fi]
           if (files[rawFile.path] === undefined) {

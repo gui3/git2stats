@@ -33,9 +33,32 @@ function parse (chunk, options = {}) {
   while (!(match = filesIt.next()).done) {
     match = match.value
     const bin = match[5] === 'Bin'
+    const path = match && match[1].trim()
+    // sanitize rename paths {ex => new} ------------------
+    // const pathRegex = /(?:\{|^).+ *=> *.+(?:\}|$)/
+    const pathMatches = path.matchAll(
+      /(?:^\{|^|\{)([^{\n]*?) => ([^}\n]*?)(?:\}$|\}|$)/g
+      //              1             2
+    )
+    let pathBefore = path
+    let pathAfter = path
+    let renamed = false
+    let pathMatch
+    while (!(pathMatch = pathMatches.next()).done) {
+      pathMatch = pathMatch.value
+      renamed = true
+      const fullMatch = pathMatch && pathMatch[0]
+      const expathPart = pathMatch && pathMatch[1]
+      const newpathPart = pathMatch && pathMatch[2]
+      pathBefore = expathPart !== undefined && pathBefore.replace(fullMatch, expathPart)
+      pathAfter = newpathPart !== undefined && pathAfter.replace(fullMatch, newpathPart)
+    }
+    // -----------------------------------------------------
     const file = {
-      path: match && match[1].trim(),
-      bin: bin, // boolean
+      pathBefore: pathBefore.replace(/\/+/g, '/'), // when path is hello//world
+      path: pathAfter.replace(/\/+/g, '/') || path,
+      renamed,
+      bin, // boolean
       changes: bin ? 0 : parseInt(match[2]) || 0,
       insertionRatio: match[3] !== undefined ? match[3].length : 0,
       deletionRatio: match[4] !== undefined ? match[4].length : 0
