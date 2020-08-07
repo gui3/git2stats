@@ -1,6 +1,11 @@
 const FileCollection = require('./FileCollection')
 // const File = require('./File')
 
+/********************************************
+Represents a git commit
+Offers
+@param
+*********************************************/
 class Commit extends Object {
   constructor (rawCommit, gitdata) {
     super()
@@ -11,7 +16,7 @@ class Commit extends Object {
     this.author = rawCommit.author
     this.changes = rawCommit.changes
     this._gitdata = gitdata
-    this._raw = rawCommit
+    // this._raw = rawCommit
 
     this.files = new FileCollection()
     rawCommit.files.forEach(file => {
