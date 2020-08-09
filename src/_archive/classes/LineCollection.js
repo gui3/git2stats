@@ -18,7 +18,7 @@ class LineCollection extends Array {
   }
 
   filterLastVersion (keepDeleted = false) {
-    const lines = {}
+    let lines = {}
     const changes = ['-', '+', ' ']
     this.forEach(line => {
       const existing = lines[line.row]
@@ -27,17 +27,19 @@ class LineCollection extends Array {
           (
             existing.epoch === line.epoch &&
             (
-              keepDeleted
-                ? line.change !== '-'
-                : changes.indexOf(existing.change) <
-                  changes.indexOf(line.change)
+              changes.indexOf(existing.change) <
+              changes.indexOf(line.change)
             )
           )
       ) {
         lines[line.row] = line
       }
     })
-    return new LineCollection(Object.values(lines))
+    lines = new LineCollection(Object.values(lines))
+    if (!keepDeleted) {
+      lines = lines.filter(l => l.change !== '-')
+    }
+    return lines
   }
 
   getSortedHistory (nowToThen = true) {

@@ -1,5 +1,6 @@
 const CommitCollection = require('./CommitCollection')
 const Commit = require('./Commit')
+const FileCollection = require('./FileCollection')
 const File = require('./File')
 
 class GitData extends CommitCollection {
@@ -39,7 +40,7 @@ class GitData extends CommitCollection {
   }
 
   getAllFiles () {
-    return Object.values(this.getFilesDict())
+    return new FileCollection(Object.values(this.getFilesDict()))
   }
 
   getFilesDict (save = true) {

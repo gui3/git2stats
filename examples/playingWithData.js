@@ -7,7 +7,7 @@ class LazyLoader {
   }
 
   static async load (path = '.') {
-    return git2stats.getAdvancedStats(path)
+    return git2stats.getAdvancedStats(path)// getAdvancedStats(path)
       .then(d => {
         this.data = d
         console.log('git data resolved !')
@@ -23,18 +23,9 @@ module.exports = {
 }
 
 /* # use :
-node --require ./examples/playingWithAdvancedData
+node --require ./examples/playingWithData
 
 let { git2stats, lazyLoader } = require('./examples/playingWithAdvancedData')
-let g = lazyLoader('.')
-// wait for console.log
-g.data // => object GitData you can play with
+let data
+lazyLoader.load('.').then(d => data= d).catch(err => console.log(err))
 */
-
-const l = LazyLoader
-
-l.load()
-  .then(data => {
-    // console.log(data.getFile('src/index.js'))
-  })
-  .catch(err => console.log(err))

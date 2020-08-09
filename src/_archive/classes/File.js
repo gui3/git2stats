@@ -26,6 +26,11 @@ class File extends Object {
       this.path = rawFile.path
       this.bin = rawFile.bin
     }
+    if (rawFile.pathBefore !== rawFile.path &&
+      rawFile.pathBefore !== this.path
+    ) {
+      this.pathBefore = rawFile.pathBefore
+    }
     this._commitShas.push(rawCommit.sha)
 
     if (rawFile.diff !== undefined) {

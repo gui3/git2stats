@@ -3,7 +3,7 @@ const parselogstat = require('../shared/parselogstat')
 const sanitizeDir = require('../shared/sanitizeDir')
 const setProgress = require('../shared/setProgress')
 const logger = require('../shared/logger')
-// const GitData = require('../classes/GitData')
+const GitData = require('../classes/GitData')
 
 async function getBasicStats (dir, options = { silent: true }) {
   options.dir = sanitizeDir(dir, options)
@@ -15,7 +15,7 @@ async function getBasicStats (dir, options = { silent: true }) {
     })
     .catch(err => { console.log(err) })
   options.logger('git2stats -> ' + data.length + ' commits')
-  return data
+  return new GitData(data)
 }
 
 module.exports = getBasicStats

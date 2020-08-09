@@ -24,34 +24,38 @@ function parse (chunk, options = {}) {
   }
   // src/components/layout/Footer.svelte     | 15 ++++++-----
   // static/images/logos/Node.png            | Bin 0 -> 28922 bytes
-  const filesIt = chunk.matchAll(
+  const regexp = // chunk.matchAll(
     /\n(.+)\|(?:(?: *(\d+) *(\+*)(-*))|(?: *(Bin)(?: *(\d+)?.+(\d+)? *bytes)?))?/g
     //   1             2     3     4        5     6       7
-  )
+  // )
   const files = []
   let match
-  while (!(match = filesIt.next()).done) {
-    match = match.value
+  while ((match = regexp.exec(chunk)) !== null) {
+    // match = match.value
     const bin = match[5] === 'Bin'
     const path = match && match[1].trim()
     // sanitize rename paths {ex => new} ------------------
     // const pathRegex = /(?:\{|^).+ *=> *.+(?:\}|$)/
-    const pathMatches = path.matchAll(
+    const pathRegexp = // path.matchAll(
       /(?:^\{|^|\{)([^{\n]*?) => ([^}\n]*?)(?:\}$|\}|$)/g
       //              1             2
-    )
+    // )
     let pathBefore = path
     let pathAfter = path
     let renamed = false
     let pathMatch
-    while (!(pathMatch = pathMatches.next()).done) {
-      pathMatch = pathMatch.value
+    while ((pathMatch = pathRegexp.exec(path)) !== null) {
+      // pathMatch = pathMatch.value
       renamed = true
       const fullMatch = pathMatch && pathMatch[0]
       const expathPart = pathMatch && pathMatch[1]
       const newpathPart = pathMatch && pathMatch[2]
-      pathBefore = expathPart !== undefined && pathBefore.replace(fullMatch, expathPart)
-      pathAfter = newpathPart !== undefined && pathAfter.replace(fullMatch, newpathPart)
+      pathBefore = expathPart !== undefined
+        ? pathBefore.replace(fullMatch, expathPart)
+        : pathBefore
+      pathAfter = newpathPart !== undefined
+        ? pathAfter.replace(fullMatch, newpathPart)
+        : pathAfter
     }
     // -----------------------------------------------------
     const file = {
